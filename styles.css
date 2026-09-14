@@ -167,3 +167,13 @@ button {
     0%, 100%{transform: scale(0.7); opacity: 0.25; }
     50% {transform: scale(1.6); opacity: 1;}
 }
+
+.screen {
+    display: none;
+    min-height: 100vh;
+}
+.screen-active{
+    display: block;
+    animation: pageEnter 0.7s cubic-bezier(.2, .8, .2, 1) both;
+}
+
