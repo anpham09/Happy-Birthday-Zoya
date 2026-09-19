@@ -127,7 +127,7 @@ function switchScreen(from, to){
 document.querySelectorAll(".photo-shell img").forEach((image)=>{
     const shell = image.closest(".photo-shell");
 
-    const.markMissing = () => {
+    const markMissing = () => {
         shell.classList.add("image-missing");
 
     };
@@ -192,3 +192,112 @@ envelope.addEventListener("click", ()=>{
         }, 150);
     }, 900);
 });
+
+celebrateButton.addEventListener("click", ()=>{
+    burstConfetti(220);
+    tinyChime();
+    makeSparklesFromElement(celebrateButton, 18);
+
+    celebrateButton.textContent = "HAPPY BIRTHDAY!!! 💙💙💙";
+    celebrateButton.disabled = true;
+
+    setTimeout(()=>{
+        celebrateButton.disabled = false;
+        celebrateButton.textContent = "Again!! ✨";
+    }, 2200);
+});
+
+
+function burstConfetti(amount = 100){
+    const layer = document.querySelector("#confetti-layer");
+
+    const colors = ["#ffd6e8","#9fc9ff","#d9ccff","#fff5bd","#ffffff","#5f8fd4"];
+    for (let i =0; i<amount; i++){
+        const piece = document.createElement("span");
+        piece.className = "confetti-piece";
+
+        piece.style.left = `${Math.random() * 100}vw`;
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+        piece.style.width = `${6+Math.random() * 7}px`;
+        piece.style.height = `${9+Math.random() * 11}px`;
+
+        piece.style.borderRadius = Math.random()>0.55?"50%":"2px";
+
+        piece.style.setProperty("--fall-duration", `${2.6 + Math.random() * 2.8}s`);
+        piece.style.setProperty("--drift", `${-140 + Math.random() * 280}px`);
+        piece.style.setProperty("--spin", `${360 + Math.random() * 900}deg`);
+
+        layer.appendChild(piece);
+        setTimeout(()=> piece.remove(), 5800);
+    }
+}
+
+function makeSparklesFromElement(element, amount = 6){
+    const rect = element.getBoundingClientRect();
+    const centerX = rect.left + rect.width/2;
+    const centerY = rect.top + rect.height/2;
+
+    for(let i = 0; i < amount; i++){
+        const sparkle = document.createElement("span");
+        sparkle.className = "click-sparkle";
+        sparkle.textContent = Math.random() >0.5? "✦" : "♡";
+
+        sparkle.style.left = `${centerX}px`;
+        sparkle.style.top = `${centerY}px`;
+        sparkle.style.setProperty("--x", `${-70 + Math.random()*140}px`);
+        sparkle.style.setProperty("--y", `${-65 + Math.random()*130}px`);
+        sparkle.style.fontSize = `${10 + Math.random() * 10}px`;
+
+        document.querySelector("#sparkle-layer").appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 750);
+    }
+}
+
+function tinyBeep(frequency = 440, duration = 0.05){
+    try{
+        const AudioContext = window.audioContext || window.webkitAudioContext;
+        const ctx = new AudioContext();
+
+        const oscillator = ctx.createOscillator();
+        const gain = ctx.createGain();
+        oscillator.type = "sine";
+        oscillator.frequency.value = frequency;
+
+        gain.gain.setValueAtTime(0.025, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime+duration);
+
+        oscillator.connect(gain);
+        gain.connect(ctx.destination);
+
+        oscillator.start();
+        oscillator.stop(ctx.currentTime + duration);
+
+        oscillator.addEventListener("ended", ()=>ctx.close());
+
+    } catch(error){
+        //in case the sound doesnt work, the web still works
+    }
+}
+
+function tinyChime(){
+    tinyBeep(523.25, 0.11);
+
+    setTimeout(()=> tinyBeep(659.25, 0.11), 95);
+    setTimeout(()=> tinyBeep(783.99, 0.16), 190);
+}
+
+document.addEventListener("pointerdown", (event) =>{
+    if (event.target.closest("button, .memory=card")) return;
+
+    const sparkle = document.createElement("span");
+    sparkle.className = "click-sparkle";
+    sparkle.textContent = "✦";
+    sparkle.style.left = `${event.clientX}px`;
+    sparkle.style.top = `${event.clientY}px`;
+    sparkle.style.setProperty("--x", `${-20 + Math.random()*40}px`);
+    sparkle.style.setProperty("--y", `${-35 - Math.random()*35}px`);
+
+    document.querySelector("#sparkle-layer").appendChild(sparkle);
+    setTimeout(()=> sparkle.remove(), 750);
+})
