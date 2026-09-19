@@ -47,7 +47,7 @@ createStars();
 const noMessages = [
     "For real... why did you click that? 😭",
     "Excuse me?? Please reconsider 🥺",
-    "The No butotn is feeling a little insecure now...",
+    "The No button is feeling a little insecure now...",
     "Bestie! We both know there is only one correct answer.",
     "Okay, I am making this button smaller for legal reasons.😭",
     "You are REALLY saying no, huh?",
@@ -58,8 +58,8 @@ const noMessages = [
 noButton.addEventListener("click", ()=>{
     noClicks++;
 
-    const scale = Math.max(0.08, 1-noClicks*0.135);
-    noButton.style.transform = `scale (${scale}) rotate(${noClicks % 2 ? -4 : 4}deg)`;
+    const scale = Math.max(0.08, 1-noClicks*0.11);
+    noButton.style.transform = `scale(${scale}) rotate(${noClicks % 2 ? -4 : 4}deg)`;
 
     const yesScale = Math.min(1.22,1 + noClicks * 0.028);
     yesButton.style.transform = `scale(${yesScale})`;
@@ -77,11 +77,11 @@ noButton.addEventListener("click", ()=>{
     makeSparklesFromElement(noButton, 6);
     tinyBeep(220-noClicks * 12, 0.06);
 
-    if (noClicks >=7){
+    if (noClicks >=8){
         noButton.style.opacity = "0.16";
         noButton.style.pointerEvents = "none";
         noButton.style.filter = "blur(1px)";
-        noMessage.textContent = "No button privileges revoked. You know what to do bae 😌"
+        noMessage.textContent = "No button privileges revoked. You know what to do bae 😘"
     }
 });
 
@@ -95,7 +95,7 @@ function moveNoButton(){
     const x = (Math.random() *2 -1) * maxX;
     const y = (Math.random() *2 -1) * maxY;
 
-    const currentScale = Math.max(0.08, 1- noClicks * 0.135);
+    const currentScale = Math.max(0.08, 1- noClicks * 0.11);
     noButton.style.transform =
         `translate(${x}px, ${y}px) scale(${currentScale}) rotate(${noClicks %2 ? -4 : 4}deg)`;
 
@@ -256,7 +256,7 @@ function makeSparklesFromElement(element, amount = 6){
 
 function tinyBeep(frequency = 440, duration = 0.05){
     try{
-        const AudioContext = window.audioContext || window.webkitAudioContext;
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
         const ctx = new AudioContext();
 
         const oscillator = ctx.createOscillator();
@@ -288,7 +288,7 @@ function tinyChime(){
 }
 
 document.addEventListener("pointerdown", (event) =>{
-    if (event.target.closest("button, .memory=card")) return;
+    if (event.target.closest("button, .memory-card")) return;
 
     const sparkle = document.createElement("span");
     sparkle.className = "click-sparkle";
