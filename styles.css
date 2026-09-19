@@ -899,5 +899,128 @@ button {
     50% {transform: translateY(-7px) rotate(3deg);}
 }
 
+#confetti-layer, #sparkle-layer{
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.confetti-piece{
+    position: absolute;
+    top: -20px;
+    width: 10px;
+    height: 16px;
+    border-radius: 3px;
+    animation: confettiFall var(--fall-duration) linear forwards;
+}
+
+@keyframes confettiFall{
+    0%{
+        transform: translate3d(0,-10px,0) rotate(0deg);
+        opacity: 1;
+    }
+    100%{
+        transform:
+            translate3d(var(--drigt), 110vh, 0)
+            rotate(var(--spin));
+        opacity: 0.15;
+    }
+}
+
+.click-sparkle{
+    position: fixed;
+    z-index: 1000;
+    color: var(--pink-soft);
+    pointer-events: none;
+    animation: sparkleBurst 0.7s ease-out forwards;
+}
 
 
+@keyframes sparkleBurst{
+    from{
+        transform: translate(-50%, -50%) scale(0.35) rotate(0deg);
+        opacity: 1;
+    }
+    to{
+        transform:
+            translate(
+                calc(-50% + var(--x)),
+                calc(-50% + var(--y))
+            )
+            scale(1.1)
+            rotate(140deg);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 900px){
+    .gallery-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+    .memory-card:nth-child(n){
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 640px){
+    .moon{
+        right: -10px;
+        top: 28px;
+        opacity: 0.55;
+    }
+    .intro-card {
+        padding: 30px 18px 28px;
+        border-radius: 25px;
+    }
+    .tiny-badge{
+        font-size:0.66rem;
+    }
+    .button-stage{
+        min-height: 150px;
+        gap: 10px;
+    }
+    .button-stage .btn{
+        min-width: 128px;
+        padding: 0 16px;
+    }
+
+    .gallery-grid{
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .memory-card,
+    .memory-card-inner{
+        min-height: 450px;
+    }
+
+    .photo-shell{
+        height: 360px;
+    }
+    .section-shell{
+        width: min(100% - 24px, 1120px);
+    }
+
+    .envelope{
+        height: 220px;
+    }
+    .letter-paper{
+        padding: 42px 22px 30px;
+    }
+    .letter-footer{
+        flex-direction: column;
+    }
+}
+
+@media (prefers-reduced-motion: reduce){
+    *,
+    *::before,
+    *::after{
+        scroll-behavior: auto !important;
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+}
