@@ -866,10 +866,10 @@ button {
     max-width: 620px;
     margin: 56px auto 0;
     padding: 38px 28px;
-    border: 1px solid rgba(255,255,255,0.12);
+    border: 2px solid rgb(255 255 255 / 48%);
     border-radius: var(--radius-xl);
     text-align: center;
-    background: rgba(255,255,255,0.055);
+    background: rgb(255 255 255 / 33%);
     box-shadow: var(--shadow-soft);
 }
 .final-surprise.visible{
@@ -943,7 +943,7 @@ button {
     animation: sparkleBurst 0.7s ease-out forwards;
 }
 
-#birthday-lock{
+/* #birthday-lock{
     position: fixed;
     inset: 0;
     z-index: 5000;
@@ -1023,7 +1023,7 @@ button {
     margin: 22px 0 0;
     color: rgba(255,255,255,0.4);
     font-size: 0.72rem;
-}
+} */
 
 @keyframes sparkleBurst{
     from{
