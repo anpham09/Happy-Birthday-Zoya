@@ -17,6 +17,53 @@ const celebrateButton = document.querySelector("#celebrate-btn");
 let noClicks = 0;
 let letterOpened = false;
 
+const birthdayLock = document.querySelector("#birthday-lock");
+const mainWebsite = document.querySelector("main");
+const countdownDays = document.querySelector("#countdown-days");
+const countdownHours = document.querySelector("#countdown-hours");
+const countdownMinutes = document.querySelector("#countdown-minutes");
+const countdownSeconds = document.querySelector("#countdown-seconds");
+const nextBirthdayText = document.querySelector("#next-birthday-text");
+
+function checkBirthday(){
+    const now = new Date();
+    const month = now.getMonth();
+    const day = now.getDate();
+
+    if (month ===9 && day ===3){
+        birthdayLock.style.display = "none";
+        mainWebsite.style.display = "";
+
+        return;
+    }
+    birthdayLock.style.display = "grid";
+    mainWebsite.style.display = "none";
+
+    let nextBirthdayYear = now.getFullYear();
+
+    if(month > 9 || (month === 9 && day >3)){
+        nextBirthdayYear++;
+    }
+    const nextBirthday = new Date(nextBirthdayYear, 9,3,0,0,0);
+    const difference = nextBirthday - now;
+    const days = Math.floor(difference /(1000*60*60*24));
+    const hours = Math.floor(difference/(1000*60*60)%24);
+    const minutes = Math.floor(difference/(1000*60)%60);
+    const seconds = Math.floor(difference/1000%60);
+
+    countdownDays.textContent = days;
+    countdownHours.textContent = hours;
+    countdownMinutes.textContent = minutes;
+    countdownSeconds.textContent= seconds;
+
+    const birthdayNumber = 18 + (nextBirthdayYear - 2026);
+
+    nextBirthdayText.textContent = `Until Birthday #${birthdayNumber} ✦ October 3, ${nextBirthdayYear}`;
+}
+
+checkBirthday();
+setInterval(checkBirthday, 1000)
+
 function createStars(){
     const starContainer = document.querySelector("#stars");
     const amount = window.innerWidth < 600 ? 45 :85;
