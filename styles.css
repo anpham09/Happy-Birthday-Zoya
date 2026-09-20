@@ -454,7 +454,7 @@ button {
 .section-heading>p:last-child{
     margin: 0 auto;
     max-width: 580px;
-    color: rgba(255255,255,0.72);
+    color: rgba(255,255,255,0.72);
     line-height: 1.7;
 }
 
@@ -494,7 +494,7 @@ button {
     opacity: 0;
 }
 .memory-card.revealed{
-    animation: cardReveal 0.7s cubic-bezier(.2,.8, 2.1) forwards;
+    animation: cardReveal 0.7s cubic-bezier(.2,.8, .2,1) forwards;
 
 }
 
